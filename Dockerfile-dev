@@ -1,4 +1,4 @@
-FROM alpine:3.4
+FROM alpine:3.8
 
 RUN echo PyYAML==3.11 > requirements.txt && \
     echo cached-property==1.2.0 >> requirements.txt && \
