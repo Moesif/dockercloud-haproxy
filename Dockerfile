@@ -4,7 +4,7 @@ MAINTAINER Feng Honglin <hfeng@tutum.co>
 COPY . /haproxy-src
 
 RUN apk update && \
-    apk --no-cache add tini haproxy py-pip build-base python-dev ca-certificates && \
+    apk --no-cache add tini haproxy py-pip build-base python-dev ca-certificates iptables && \
     cp /haproxy-src/reload.sh /reload.sh && \
     cd /haproxy-src && \
     pip install -r requirements.txt && \
