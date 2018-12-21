@@ -1,5 +1,5 @@
 FROM alpine:3.8
-MAINTAINER Feng Honglin <hfeng@tutum.co>
+MAINTAINER Kevin Darcel <tuxity@users.noreply.github.com>
 
 COPY . /haproxy-src
 
