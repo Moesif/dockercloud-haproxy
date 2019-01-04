@@ -117,8 +117,8 @@ STATS_PORT = os.getenv("STATS_PORT", "1936")
 TIMEOUT = os.getenv("TIMEOUT", "connect 5000, client 50000, server 50000")
 NBPROC = int(os.getenv("NBPROC", 1))
 SWARM_MODE_POLLING_INTERVAL = int(os.getenv("SWARM_MODE_POLLING_INTERVAL", 5))
-HAPROXY_USER = os.getenv("HAPROXY_USER", "haproxy")
-HAPROXY_GROUP = os.getenv("HAPROXY_GROUP", "haproxy")
+HAPROXY_USER = os.getenv("HAPROXY_USER", "root")
+HAPROXY_GROUP = os.getenv("HAPROXY_GROUP", "root")
 RELOAD_TIMEOUT = os.getenv("RELOAD_TIMEOUT", "0")
 
 # global
@@ -128,8 +128,8 @@ RUNNING_MODE = None
 CERT_DIR = "/certs/"
 CACERT_DIR = "/cacerts/"
 HAPROXY_CONFIG_FILE = "/haproxy.cfg"
-HAPROXY_RUN_COMMAND = ['/usr/sbin/haproxy', '-f', HAPROXY_CONFIG_FILE, '-db', '-q']
-HAPROXY_CONFIG_CHECK_COMMAND = ['/usr/sbin/haproxy', '-c', '-f', HAPROXY_CONFIG_FILE]
+HAPROXY_RUN_COMMAND = ['haproxy', '-f', HAPROXY_CONFIG_FILE, '-db', '-q']
+HAPROXY_CONFIG_CHECK_COMMAND = ['haproxy', '-c', '-f', HAPROXY_CONFIG_FILE]
 API_RETRY = 10  # seconds
 PID_FILE = "/tmp/dockercloud-haproxy.pid"
 SERVICE_PORTS_ENVVAR_NAME = "SERVICE_PORTS"

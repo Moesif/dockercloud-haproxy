@@ -1,10 +1,10 @@
-FROM alpine:3.8
+FROM haproxy:1.9.0-alpine
 MAINTAINER Kevin Darcel <tuxity@users.noreply.github.com>
 
 COPY . /haproxy-src
 
 RUN apk update && \
-    apk --no-cache add tini haproxy py-pip build-base python-dev ca-certificates iptables && \
+    apk --no-cache add tini py-pip build-base python-dev ca-certificates iptables && \
     cp /haproxy-src/reload.sh /reload.sh && \
     cd /haproxy-src && \
     pip install -r requirements.txt && \
