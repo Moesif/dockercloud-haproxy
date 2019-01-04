@@ -4,7 +4,7 @@ MAINTAINER Kevin Darcel <tuxity@users.noreply.github.com>
 COPY . /haproxy-src
 
 RUN apk update && \
-    apk --no-cache add tini py-pip build-base python-dev ca-certificates iptables && \
+    apk --no-cache add py-pip build-base python-dev ca-certificates iptables && \
     cp /haproxy-src/reload.sh /reload.sh && \
     cd /haproxy-src && \
     pip install -r requirements.txt && \
@@ -26,5 +26,4 @@ ENV RSYSLOG_DESTINATION=127.0.0.1 \
     NBPROC=1
 
 EXPOSE 80 443 1936
-ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["dockercloud-haproxy"]
