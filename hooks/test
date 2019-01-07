@@ -1,2 +1,2 @@
 #!/bin/sh
-docker run -v $(pwd):/app --privileged docker:dind ash -c 'eval "dockerd > /dev/null 2>&1 &" && apk update && apk add bash build-base curl openssl py-pip python-dev && cd app && ./test.sh'
+docker run -v $(pwd):/app --privileged docker:dind ash -c 'eval "dockerd > /dev/null 2>&1 &" && apk update && apk add --no-cache bash build-base curl openssl py-pip python-dev && cd app && ./test.sh'
