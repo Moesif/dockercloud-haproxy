@@ -361,9 +361,9 @@ class ComposeModeLinkHelperTestCase(unittest.TestCase):
 
     def test_get_link_compose_services(self):
         services = [u'hello', u'world']
-        self.assertEqual(services, _get_linked_compose_services(container1["NetworkSettings"]["Networks"], 'tmp'))
+        self.assertEqual(services, _get_linked_compose_services(container1["NetworkSettings"]["Networks"], 'tmp', False))
 
-        self.assertEqual([], _get_linked_compose_services(container1["NetworkSettings"]["Networks"], ''))
+        self.assertEqual([], _get_linked_compose_services(container1["NetworkSettings"]["Networks"], '', False))
 
     def test_get_service_links_str(self):
         self.assertEqual([u'tmp_hello', u'tmp_world'], get_service_links_str(links))

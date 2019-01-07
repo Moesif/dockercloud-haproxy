@@ -10,7 +10,9 @@ def get_compose_mode_links(docker, haproxy_container):
         raise Exception("Cannot read compose labels. Are you using docker compose V2?")
 
     networks = haproxy_container.get("NetworkSettings", {}).get("Networks", {})
-    linked_compose_services = _get_linked_compose_services(networks, project)
+    compose_labels = haproxy_container.get("Config", {}).get("Labels", {})
+    has_slug = compose_labels.get("com.docker.compose.slug", "") != ""
+    linked_compose_services = _get_linked_compose_services(networks, project, has_slug)
 
     links = _calc_links(docker, linked_compose_services, project)
     return links, set(["%s_%s" % (project, service) for service in linked_compose_services])
@@ -95,7 +97,7 @@ def get_container_envvars(container):
     return container_evvvars
 
 
-def _get_linked_compose_services(networks, project):
+def _get_linked_compose_services(networks, project, has_slug):
     prefix = "%s_" % project
     prefix_len = len(prefix)
 
@@ -112,6 +114,11 @@ def _get_linked_compose_services(networks, project):
         if service and service.startswith(prefix):
             last = service.rfind("_")
             linked_service = service[prefix_len:last]
+            # The default naming scheme for containers created by Compose in has changed in 1.23.0
+            # from <project>_<service>_<index> to <project>_<service>_<index>_<slug>,
+            # where <slug> is a randomly-generated hexadecimal string.
+            if has_slug:
+                linked_service = linked_service[0:linked_service.rfind("_")]
             if linked_service not in linked_services:
                 linked_services.append(linked_service)
     return linked_services
