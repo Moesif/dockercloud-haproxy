@@ -1,4 +1,4 @@
-FROM haproxy:1.9.0-alpine
+FROM haproxy:2.1.4-alpine
 MAINTAINER Kevin Darcel <tuxity@users.noreply.github.com>
 
 COPY . /haproxy-src
