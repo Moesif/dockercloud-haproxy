@@ -3,13 +3,14 @@ MAINTAINER Kevin Darcel <tuxity@users.noreply.github.com>
 
 COPY . /haproxy-src
 
-RUN apk update && \
-    apk --no-cache add py-pip build-base python-dev ca-certificates iptables && \
+RUN apt-get update && \
+    apt-get -y install python2 python2-dev ca-certificates iptables curl && \
+    curl -s https://bootstrap.pypa.io/pip/2.7/get-pip.py get-pip.py | bash -c 'python2' && \
     cp /haproxy-src/reload.sh /reload.sh && \
     cd /haproxy-src && \
-    pip install -r requirements.txt && \
-    pip install . && \
-    apk del build-base python-dev && \
+    pip2 install -r requirements.txt && \
+    pip2 install . && \
+    apt-get -y remove python2-dev && \
     rm -rf "/tmp/*" "/root/.cache" `find / -regex '.*\.py[co]'`
 
 ENV RSYSLOG_DESTINATION=127.0.0.1 \
