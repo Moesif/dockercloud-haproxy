@@ -120,7 +120,8 @@ def get_http_check_setting(details, service_alias):
     setting = []
     http_check = get_service_attribute(details, "http_check", service_alias)
     if http_check:
-        setting.append("option httpchk %s" % http_check)
+        setting.append("option httpchk")
+        setting.append("  http-check send meth GET uri /health/probe")
     return setting
 
 

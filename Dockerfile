@@ -1,16 +1,16 @@
-FROM haproxy:2.1.5-alpine
+FROM haproxy:2.2.18
 MAINTAINER Kevin Darcel <tuxity@users.noreply.github.com>
 
 COPY . /haproxy-src
 
 RUN apt-get update && \
-    apt-get -y install python2 python2-dev ca-certificates iptables curl && \
+    apt-get -y install python2 python2-dev build-essential ca-certificates iptables curl && \
     curl -s https://bootstrap.pypa.io/pip/2.7/get-pip.py get-pip.py | bash -c 'python2' && \
     cp /haproxy-src/reload.sh /reload.sh && \
     cd /haproxy-src && \
-    pip2 install -r requirements.txt && \
-    pip2 install . && \
-    apt-get -y remove python2-dev && \
+    pip install -r requirements.txt && \
+    pip install . && \
+    apt-get -y remove python2-dev build-essential && \
     rm -rf "/tmp/*" "/root/.cache" `find / -regex '.*\.py[co]'`
 
 ENV RSYSLOG_DESTINATION=127.0.0.1 \
